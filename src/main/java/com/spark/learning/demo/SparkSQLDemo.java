@@ -420,5 +420,29 @@ public class SparkSQLDemo {
         demonstrateComplexQueries(spark);
         demonstrateGlobalTempView(spark);
     }
+
+    /**
+     * 独立运行入口
+     */
+    public static void main(String[] args) {
+        SparkSession spark = SparkSession.builder()
+            .appName("Spark SQL Demo")
+            .config("spark.master", "local[*]")
+            .config("spark.driver.extraJavaOptions", 
+                "--add-exports java.base/sun.nio.ch=ALL-UNNAMED " +
+                "--add-opens java.base/java.lang=ALL-UNNAMED")
+            .config("spark.executor.extraJavaOptions",
+                "--add-exports java.base/sun.nio.ch=ALL-UNNAMED " +
+                "--add-opens java.base/java.lang=ALL-UNNAMED")
+            .getOrCreate();
+        
+        spark.sparkContext().setLogLevel("WARN");
+        
+        System.out.println("========== Spark SQL 演示开始 ==========");
+        runAllDemos(spark);
+        System.out.println("========== Spark SQL 演示完成 ==========");
+        
+        spark.stop();
+    }
 }
 

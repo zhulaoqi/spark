@@ -298,5 +298,29 @@ public class RDDOperationsDemo {
         demonstratePartitioning(sc);
         demonstratePersistence(sc);
     }
+
+    /**
+     * 独立运行入口
+     */
+    public static void main(String[] args) {
+        org.apache.spark.SparkConf conf = new org.apache.spark.SparkConf()
+            .setAppName("RDD Operations Demo")
+            .setIfMissing("spark.master", "local[*]")
+            .set("spark.driver.extraJavaOptions", 
+                "--add-exports java.base/sun.nio.ch=ALL-UNNAMED " +
+                "--add-opens java.base/java.lang=ALL-UNNAMED")
+            .set("spark.executor.extraJavaOptions",
+                "--add-exports java.base/sun.nio.ch=ALL-UNNAMED " +
+                "--add-opens java.base/java.lang=ALL-UNNAMED");
+        
+        JavaSparkContext sc = new JavaSparkContext(conf);
+        sc.setLogLevel("WARN");
+        
+        System.out.println("========== RDD 操作演示开始 ==========");
+        runAllDemos(sc);
+        System.out.println("========== RDD 操作演示完成 ==========");
+        
+        sc.close();
+    }
 }
 

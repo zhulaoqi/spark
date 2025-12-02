@@ -376,5 +376,30 @@ public class AdvancedFeaturesDemo {
         demonstrateDataSkewHandling(spark);
         demonstrateCustomPartitioner(sc);
     }
+
+    /**
+     * 独立运行入口
+     */
+    public static void main(String[] args) {
+        SparkSession spark = SparkSession.builder()
+            .appName("Advanced Features Demo")
+            .config("spark.master", "local[*]")
+            .config("spark.driver.extraJavaOptions", 
+                "--add-exports java.base/sun.nio.ch=ALL-UNNAMED " +
+                "--add-opens java.base/java.lang=ALL-UNNAMED")
+            .config("spark.executor.extraJavaOptions",
+                "--add-exports java.base/sun.nio.ch=ALL-UNNAMED " +
+                "--add-opens java.base/java.lang=ALL-UNNAMED")
+            .getOrCreate();
+        
+        JavaSparkContext sc = new JavaSparkContext(spark.sparkContext());
+        spark.sparkContext().setLogLevel("WARN");
+        
+        System.out.println("========== 高级特性演示开始 ==========");
+        runAllDemos(spark, sc);
+        System.out.println("========== 高级特性演示完成 ==========");
+        
+        spark.stop();
+    }
 }
 
