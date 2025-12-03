@@ -43,13 +43,6 @@
             <version>${spark.version}</version>
         </dependency>
 
-        <!-- Hadoop Client -->
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-client</artifactId>
-            <version>${hadoop.version}</version>
-        </dependency>
-
         <!-- Lombok (简化代码) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -77,6 +70,23 @@
             <version>5.10.1</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-scala_2.12</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
